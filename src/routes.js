@@ -1,11 +1,17 @@
+import { itsWorks } from "./controllers/itsWorks.js"
+import { getlista } from "./controllers/lista/index.js"
 
-const itsWorks = (request, response) => {
-    return response.json({ message: "it's works!" })
-  }
 export const defineRoutes = (app) => {
 
-    //ROUTES
+  //ROUTES
 
-    app.get("/", itsWorks)
+  app.get("/", itsWorks)
+  
+  //LISTA
+  
+  app.get(
+    "/lista",
+    getlista
+  )
 
 }
