@@ -4,7 +4,7 @@ export const setListaTratada = (resultado, categoria) => {
       const { id, name, title, overview, poster_path, backdrop_path, vote_average, release_date, first_air_date, origin_country, created_by, number_of_seasons } = resultado
       const poster = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : "https://via.placeholder.com/500x750.png?text=Imagem+indisponível"
       const capa = backdrop_path ? `https://image.tmdb.org/t/p/original${backdrop_path}` : "https://via.placeholder.com/500x281.png?text=Imagem+indisponível"
-      const categoriaResultado = categoria === "movie" ? "Filme" : "Série"
+      const categoriaResultado = resultado.title ? "Filme" : "Série"
       const lancamento = categoria === "movie" ? release_date : first_air_date
       const diretor = created_by && created_by.length > 0 ? created_by.map((criador) => criador.name).join(", ") : "Não informado"
       const pais = origin_country && origin_country.length > 0 ? origin_country.join(", ") : "Não informado"
