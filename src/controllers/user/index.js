@@ -18,7 +18,7 @@ export const createUser = async (request, response) => {
 
 export const updateUser = async (request, response) => {
     try {
-        const result = await userService(request).updateUser
+        const result = await userService(request).updateUser()
         return response.json({
             message: "Usuario atualizado com sucesso",
             lista: result,
@@ -34,7 +34,7 @@ export const updateUser = async (request, response) => {
 
 export const deleteUser = async (request, response) => {
     try {
-        const result = await userService(request).deleteUser
+        const result = await userService(request).deleteUser()
         return response.json({
             message: "Usuario deletado com sucesso",
             lista: result,
@@ -50,7 +50,7 @@ export const deleteUser = async (request, response) => {
 
 export const getAllUser = async (request, response) => {
     try {
-        const result = await userService(request).getAllUser
+        const result = await userService(request).getAllUser()
         return response.json({
             message: "Lista de usuarios encontrada com sucesso",
             lista: result,
@@ -66,7 +66,7 @@ export const getAllUser = async (request, response) => {
 
 export const getUserById = async (request, response) => {
     try {
-        const result = await userService(request).getUserById
+        const result = await userService(request).getUserById()
         return response.json({
             message: "Usuario encontrado com sucesso",
             lista: result,

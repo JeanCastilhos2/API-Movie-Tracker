@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const listSchema = new mongoose.Schema({
+const favoritoSchema = new mongoose.Schema({
   usuario_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
@@ -26,5 +26,5 @@ const listSchema = new mongoose.Schema({
   },
 })
 
-export const List = mongoose.models.List || mongoose.model('List', listSchema)
+export const Favorito = mongoose.models.Favorito || mongoose.model('Favorito', favoritoSchema)
 

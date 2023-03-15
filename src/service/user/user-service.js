@@ -1,4 +1,5 @@
 import { User } from "../../models/User.js"
+import { createKey } from "../utils/createKey.js"
 
 export const userService = (request) => {
 
@@ -15,7 +16,8 @@ export const userService = (request) => {
         const createUser = User.create({
             email,
             nome,
-            senha
+            senha,
+            key: createKey()
         })
         return { createUser }
     }

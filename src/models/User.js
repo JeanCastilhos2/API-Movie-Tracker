@@ -10,6 +10,9 @@ const userSchema = new mongoose.Schema({
   senha: {
     type: String
   },
+  key: {
+    type: String
+  }
 })
 
 export const User = mongoose.models.User || mongoose.model('User', userSchema)
