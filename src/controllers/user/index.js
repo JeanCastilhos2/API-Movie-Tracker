@@ -1,5 +1,5 @@
 import { userService } from "../../service/user/user-service.js"
-import { StatusCodes } from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes'
 
 export const createUser = async (request, response) => {
     try {
@@ -10,7 +10,7 @@ export const createUser = async (request, response) => {
         })
     } catch (error) {
         return response.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
-            message: error.message || "Ocorreu um erro ao criar o usuário",
+            Message: error.message || "Ocorreu um erro ao criar o usuário",
         })
     }
 }
@@ -24,7 +24,7 @@ export const updateUser = async (request, response) => {
         })
     } catch (error) {
         return response.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
-            message: error.message || "Ocorreu um erro ao atualizar o usuário",
+            Message: error.message || "Ocorreu um erro ao atualizar o usuário",
         })
     }
 }
@@ -38,7 +38,7 @@ export const deleteUser = async (request, response) => {
         })
     } catch (error) {
         return response.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
-            message: error.message || "Ocorreu um erro ao deletar o usuário",
+            Message: error.message || "Ocorreu um erro ao deletar o usuário",
         })
     }
 }
@@ -52,7 +52,7 @@ export const getAllUser = async (request, response) => {
         })
     }catch (error) {
         return response.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
-            message: error.message || "Erro ao buscar a lista de usuarios",
+            Message: error.message || "Erro ao buscar a lista de usuarios",
         })
     }
 }
@@ -61,12 +61,12 @@ export const getUserById = async (request, response) => {
     try {
         const result = await userService(request).getUserById()
         return response.status(StatusCodes.OK).json({
-            message: "Usuario encontrado com sucesso",
-            lista: result,
+            Message: "Usuario encontrado com sucesso",
+            User: result,
         })
     } catch (error) {
         return response.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
-            message: error.message || "Ocorreu um erro ao buscar o usuário",
+            Message: error.message || "Ocorreu um erro ao buscar o usuário",
         })
     }
 }
@@ -75,12 +75,12 @@ export const getUserByEmail = async (request, response) => {
     try {
         const result = await userService(request).getUserByEmail()
         return response.status(StatusCodes.OK).json({
-            message: "Usuario encontrado com sucesso",
-            lista: result,
+            Message: "Usuario encontrado com sucesso",
+            User: result,
         })
     } catch (error) {
         return response.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
-            message: error.message || "Ocorreu um erro ao buscar o usuário",
+            Message: error.message || "Ocorreu um erro ao buscar o usuário",
         })
     }
 }

@@ -1,6 +1,6 @@
 import { itsWorks } from "./controllers/itsWorks.js"
-import { getlista } from "./controllers/lista/index.js"
-import { getTitulo } from "./controllers/titulo/index.js"
+import { getlist } from "./controllers/list/index.js"
+import { getTitle } from "./controllers/title/index.js"
 import { getSearch } from "./controllers/search/index.js"
 import { getAllUser, createUser, updateUser, deleteUser, getUserById, getUserByEmail } from "./controllers/user/index.js"
 import { createSavedTitle, updateSavedTitle, deleteSavedTitle, getSavedTitles } from "./controllers/savedTitle/index.js"
@@ -11,25 +11,25 @@ export const defineRoutes = (app) => {
 
   app.get("/", itsWorks)
 
-  //TITULO 
+  //TITLE
 
   app.get(
     "/titulo/:categoria/:id",
-    getTitulo
+    getTitle
   )
 
   //SEARCH 
 
   app.get(
-    "/buscar/:search",
+    "/busca/:search",
     getSearch
   )
 
-  //LISTA
+  //LIST
 
   app.get(
     "/lista/:categoria/:genero",
-    getlista
+    getlist
   )
 
   //USER
@@ -51,7 +51,7 @@ export const defineRoutes = (app) => {
     getUserById
   )
   app.get(
-    "/userByEmail/:userEmail",
+    "/user/:email/:userEmail",
     getUserByEmail
   )
   app.get(
