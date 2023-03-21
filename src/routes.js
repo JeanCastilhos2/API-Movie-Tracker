@@ -1,8 +1,9 @@
 import { itsWorks } from "./controllers/itsWorks.js"
 import { getlista } from "./controllers/lista/index.js"
 import { getTitulo } from "./controllers/titulo/index.js"
-import { getBusca } from "./controllers/busca/index.js"
-import { getAllUser, createUser, updateUser, deleteUser, getUserById } from "./controllers/user/index.js"
+import { getSearch } from "./controllers/search/index.js"
+import { getAllUser, createUser, updateUser, deleteUser, getUserById, getUserByEmail } from "./controllers/user/index.js"
+import { createSavedTitle, updateSavedTitle, deleteSavedTitle, getSavedTitles } from "./controllers/savedTitle/index.js"
 
 export const defineRoutes = (app) => {
 
@@ -17,11 +18,11 @@ export const defineRoutes = (app) => {
     getTitulo
   )
 
-  //BUSCA 
+  //SEARCH 
 
   app.get(
-    "/buscar/:busca",
-    getBusca
+    "/buscar/:search",
+    getSearch
   )
 
   //LISTA
@@ -33,30 +34,48 @@ export const defineRoutes = (app) => {
 
   //USER
 
-  app.get(
-    "/user",
-    getAllUser
-  )
-  app.get(
-    "/user/:id",
-    getUserById
-  )
   app.post(
     "/user",
     createUser
   )
   app.patch(
-    "/user/:id",
+    "/user/:_id",
     updateUser
   )
   app.delete(
-    "/user/:id",
+    "/user/:_id",
     deleteUser
   )
-
-  /* app.get(
+  app.get(
+    "/user/:_id",
+    getUserById
+  )
+  app.get(
+    "/userByEmail/:userEmail",
+    getUserByEmail
+  )
+  app.get(
+    "/user",
+    getAllUser
+  )
+  app.get(
     "/user/list/:user_id",
-    getListByUser
-  ) */
+    getSavedTitles
+  ) 
+
+  //SAVEDTITLES
+
+  app.post(
+    "/salvar",
+    createSavedTitle
+  )
+  app.patch(
+    "/user/:id",
+    updateSavedTitle
+  )
+  app.delete(
+    "/user/:id",
+    deleteSavedTitle
+  )
 
 }

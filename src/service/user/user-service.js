@@ -1,78 +1,109 @@
 import { User } from "../../models/User.js"
 import { createKey } from "../utils/createKey.js"
+import { StatusCodes } from 'http-status-codes'
+import mongoose from 'mongoose'
 
 export const userService = (request) => {
-
-    const { _id, nome, email, senha } = body
+    const { _id, userEmail } = request.params
+    const { nome, email, senha } = request.body
 
     const createUser = async () => {
-        const findUser = await User.findOne({ email })
-        if (findUser) {
-            return response.json({
-                message: "Email já cadastrado",
-                status: 409
-            })
+        if (!nome || !email || !senha){
+            const response = {
+                statusCode: StatusCodes.EXPECTATION_FAILED,
+                message: "Nome, Email e Senha são nescessarios para criar um usuario ",
+            }
+            throw response
         }
-        const createUser = User.create({
+        const findUser = await User.findOne({ email });
+        if (findUser) {
+            const response = {
+                statusCode: StatusCodes.CONFLICT,
+                message: "Email já cadastrado !",
+            }
+            throw response
+        }
+        await User.create({
             email,
             nome,
             senha,
             key: createKey()
-        })
-        return { createUser }
+        });
+        return { nome, email, senha }
     }
-
+    
     const updateUser = async () => {
         let userForUpdate = await User.findById({ _id })
         if (!userForUpdate.email) {
-            return response.json({
-                message: `Usuario não encontrado com o id: ${_id}`,
-                status: 404
-            })
-        }
-        if (email) {
-            userForUpdate.email = email
+            const response = {
+                statusCode: StatusCodes.NOT_FOUND,
+                message: `Usuario não encontrado com o id ${_id}`,
+            }
+            throw response
         }
         if (nome) {
             userForUpdate.nome = nome
         }
+        if (email) {
+            userForUpdate.email = email
+        }
         if (senha) {
             userForUpdate.senha = senha
         }
-        const updateUser = User.findByIdAndUpdate(_id, userForUpdate)
-        return updateUser
+        await User.findByIdAndUpdate(_id, userForUpdate)
+        return { email: userForUpdate.email, nome: userForUpdate.nome }
     }
 
     const deleteUser = async () => {
-        const { _id } =
-            UserRequest(request).getUserForDelete()
+        if (!mongoose.Types.ObjectId.isValid(_id)) {
+            const response = {
+              statusCode: StatusCodes.NOT_FOUND,
+              message: `Id do usuário não é válido: ${_id}`,
+            };
+            throw response;
+          }        
         let userForDelete = await User.findById({ _id })
-        if (!userForDelete) {
-            return response.json({
-                message: `Usuario não encontrado com o id: ${_id}`,
-                status: 404
-            })
+        if (userForDelete == null) {
+            const response = {
+                statusCode: StatusCodes.NOT_FOUND,
+                message: `Usuario não encontrado com o id ${_id}`,
+            }
+            throw response
         }
-        userForDelete.remove()
-        return { name: userForDelete.nome, email: userForDelete.email }
+        await User.deleteOne({_id: userForDelete._id})
+        return userForDelete
     }
 
     const getAllUser = async () => {
-        const lista = await User.find()
+        const list = await User.find()
+        if (list == null) {
+            const response = {
+                statusCode: StatusCodes.NOT_FOUND,
+                message: `Nenhum usuario encontrado`,
+            }
+            throw response
+        }
         return {
-            users: lista
+            list
         }
     }
 
     const getUserById = async () => {
-        const result = await User.findOne({ _id })
+        const result = await User.findOne({ _id });
+        if (result == null) {
+            const response = {
+                statusCode: StatusCodes.NOT_FOUND,
+                message: `Nenhum usuario encontrado com o id ${_id}`,
+            }
+            throw response
+        }
         return result
-    }
+    };
 
     const getUserByEmail = async () => {
-        const result = await User.findOne({ email })
-        return result
-    }
+        const result = await User.findOne({ email: userEmail });
+        return result;
+    };
 
     return {
         createUser,
@@ -80,6 +111,6 @@ export const userService = (request) => {
         deleteUser,
         getAllUser,
         getUserById,
-        getUserByEmail
-    }
-}
+        getUserByEmail,
+    };
+};

@@ -1,11 +1,9 @@
-import { buscaService } from "../../service/busca/busca-service.js"
+import { searchService } from "../../service/search/search-service.js"
 
-export const getBusca = async (request, response) => {
+export const getSearch = async (request, response) => {
 
     try {
-        console.log("aqui")
-        const result = await buscaService(request).getBusca()
-        console.log("aquiIIII")
+        const result = await searchService(request).getSearch()
         return response.json({
             message: "Títulos encontrados",
             lista: result,

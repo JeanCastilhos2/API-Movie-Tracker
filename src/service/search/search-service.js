@@ -4,22 +4,22 @@ import { setListaTratada } from '../utils/setListaTratada.js'
 const SEARCH_URL = process.env.SEARCH_URL
 const API_KEY = process.env.API_KEY
 
-export const buscaService = (request) => {
+export const searchService = (request) => {
 
-    const getBusca = async () => {
+    const getSearch = async () => {
 
-        const { busca } = request.params
-        const { idioma } = request.query
-        const language = idioma || "pt-BR"
+        const { search } = request.params
+        const { languageQuery } = request.query
+        const language = languageQuery || "pt-BR"
 
         try {
-            const { data } = await axios.get(`${SEARCH_URL}?query=${busca}&${API_KEY}&language=${language}`)
+            const { data } = await axios.get(`${SEARCH_URL}?query=${search}&${API_KEY}&language=${language}`)
             return setListaTratada(data.results);
         } catch (error) {
             throw new Error(`Error while fetching data: ${error}`)
         }
     }
     return {
-        getBusca
+        getSearch
     }
 }

@@ -1,23 +1,23 @@
 import mongoose from 'mongoose'
 
-const favoritoSchema = new mongoose.Schema({
-  usuario_id: {
+const savedTitleSchema = new mongoose.Schema({
+  user_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  titulo_id: {
+  title_id: {
     type: String
   },
-  titulo: {
+  title: {
     type: String
   },
   poster: {
     type: String
   },
-  categoria: {
+  category: {
     type: String
   },
-  nota: {
+  rating: {
     type: Number
   },
   created_date: {
@@ -26,5 +26,4 @@ const favoritoSchema = new mongoose.Schema({
   },
 })
 
-export const Favorito = mongoose.models.Favorito || mongoose.model('Favorito', favoritoSchema)
-
+export const SavedTitle = mongoose.models.SavedTitle || mongoose.model('SavedTitle', savedTitleSchema)
