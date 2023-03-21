@@ -4,6 +4,7 @@ import { getTitle } from "./controllers/title/index.js"
 import { getSearch } from "./controllers/search/index.js"
 import { getAllUser, createUser, updateUser, deleteUser, getUserById, getUserByEmail } from "./controllers/user/index.js"
 import { createSavedTitle, updateSavedTitle, deleteSavedTitle, getSavedTitles } from "./controllers/savedTitle/index.js"
+import { verifyAccessToken } from "./controllers/auth/index.js"
 
 export const defineRoutes = (app) => {
 
@@ -15,6 +16,7 @@ export const defineRoutes = (app) => {
 
   app.get(
     "/titulo/:categoria/:id",
+    verifyAccessToken(['USER']),
     getTitle
   )
 
@@ -22,13 +24,15 @@ export const defineRoutes = (app) => {
 
   app.get(
     "/busca/:search",
+    verifyAccessToken(['USER']),
     getSearch
-  )
+)
 
   //LIST
 
   app.get(
     "/lista/:categoria/:genero",
+    verifyAccessToken(['USER']),
     getlist
   )
 
