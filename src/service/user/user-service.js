@@ -1,7 +1,8 @@
+import mongoose from 'mongoose'
+import { StatusCodes } from 'http-status-codes'
 import { User } from "../../models/User.js"
 import { createKey } from "../utils/createKey.js"
-import { StatusCodes } from 'http-status-codes'
-import mongoose from 'mongoose'
+import { emailService} from "../email/email-service.js"
 
 export const userService = (request) => {
     const { _id, userEmail } = request.params
@@ -15,7 +16,7 @@ export const userService = (request) => {
             }
             throw response
         }
-        const findUser = await User.findOne({ email });
+        const findUser = await User.findOne({ email })
         if (findUser) {
             const response = {
                 statusCode: StatusCodes.CONFLICT,
@@ -28,7 +29,8 @@ export const userService = (request) => {
             nome,
             senha,
             key: createKey()
-        });
+        })
+        emailService(request).sendCreateEmail(email)
         return { nome, email, senha }
     }
 
