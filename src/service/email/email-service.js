@@ -20,7 +20,7 @@ export const emailService = async (destinatario) => {
         
         Gostaríamos de informá-lo que a API do Movie Tracker já está disponível e pode ser acessada por meio da chave de acesso abaixo:
         
-        Chave de acesso: ${user.nome.key}
+        Chave de acesso: ${user.key}
         
         Acesse a API do Movie Tracker em: https://api-movie-tracker.cyclic.app/
         
