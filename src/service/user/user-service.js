@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import { StatusCodes } from 'http-status-codes'
 import { User } from "../../models/User.js"
 import { createKey } from "../utils/createKey.js"
-import { emailService} from "../email/email-service.js"
+import { emailService } from '../email/email-service.js'
 
 export const userService = (request) => {
     const { _id, userEmail } = request.params
@@ -24,13 +24,14 @@ export const userService = (request) => {
             }
             throw response
         }
+        console.log(email)
+        await emailService(email)
         await User.create({
             email,
             nome,
             senha,
             key: createKey()
         })
-        emailService(request).sendCreateEmail(email)
         return { nome, email, senha }
     }
 

@@ -1,38 +1,27 @@
-import nodemailer from 'nodemailer'
+import sendGrid from "@sendgrid/mail"
 import { User } from "../../models/User.js"
 
 const EMAIL = process.env.EMAIL
-const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD
+const SENDEREMAIL_API_KEY = process.env.SENDEREMAIL_API_KEY
 
-export const emailService = (request) => {
+export const emailService = async (destinatario) => {
 
-    const sendCreateEmail = async (destinatario) => {
+    const user = await User.findOne({ email: destinatario })
 
-        const user = await User.findOne({ email: destinatario })
-        const transporter = nodemailer.createTransport({
-            service: 'yahoo',
-            auth: {
-                user: EMAIL,
-                pass: EMAIL_PASSWORD
-            }
-        })
+    sendGrid.setApiKey(SENDEREMAIL_API_KEY)
 
-        const mailOptions = {
-            from: EMAIL,
-            to: destinatario,
-            subject: "Bem vindo ao Movie Tracker",
-            text: `Bem vindo ${user.nome} sua key de aceso é ${user.key}`
-        }
-
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log('Erro ao enviar e-mail:', error);
-            } else {
-                console.log('E-mail enviado para', destinatario, ':', info.response);
-            }
-        })
+    const messageData = {
+        to: destinatario,
+        from: EMAIL,
+        subject: "teste",
+        text: "teste",
+        html: "<p>teste</p>"
     }
-    return {
-        sendCreateEmail
+
+    try {
+        await sendGrid.send(messageData)
+        console.log(`Email enviando com sucesso para ${destinatario}`)
+    } catch (error) {
+        console.log(error)
     }
 }
