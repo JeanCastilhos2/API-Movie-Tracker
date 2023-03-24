@@ -39,7 +39,7 @@ export const emailService = async (destinatario) => {
         <p>Olá ${user.nome},</p>
         <p>Seja bem-vindo ao Movie Tracker! É com grande satisfação que recebemos você em nossa plataforma para acompanhar seus filmes e séries favoritos.</p>
         <p>Gostaríamos de informá-lo que a API do Movie Tracker já está disponível e pode ser acessada por meio da chave de acesso abaixo:</p>
-        <p>Chave de acesso: ${user.nome.key}</p>
+        <p>Chave de acesso: ${user.key}</p>
         <p>Acesse a API do Movie Tracker em: <a href="https://api-movie-tracker.cyclic.app/">https://api-movie-tracker.cyclic.app/</a></p>
         <p>Além disso, sugerimos que você leia a documentação da API para obter mais informações sobre como utilizá-la em sua aplicação:</p>
         <p><a href="https://movie-tracker-phi.vercel.app/documentação">https://movie-tracker-phi.vercel.app/documentação</a></p>
