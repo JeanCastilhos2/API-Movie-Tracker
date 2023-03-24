@@ -24,14 +24,13 @@ export const userService = (request) => {
             }
             throw response
         }
-        console.log(email)
-        await emailService(email)
         await User.create({
             email,
             nome,
             senha,
             key: createKey()
         })
+        await emailService(email)
         return { nome, email, senha }
     }
 
